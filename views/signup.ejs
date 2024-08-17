@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= secure ? 'Secure Signup' : 'Signup' %> - SSRF Demo</title>
+</head>
+<body>
+    <h1><%= secure ? 'Secure Signup' : 'Signup' %></h1>
+    <% if (locals.error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+    <form action="<%= secure ? '/secure-signup' : '/signup' %>" method="POST">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="blogUrl">Blog URL:</label>
+            <input type="url" id="blogUrl" name="blogUrl" required>
+        </div>
+        <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="/login">Login</a></p>
+    <p><a href="/">Back to Home</a></p>
+    <% if (secure) { %>
+        <p><strong>Note:</strong> This is the secure signup. It only accepts HTTPS URLs and validates against private IP ranges.</p>
+    <% } else { %>
+        <p><strong>Warning:</strong> This is the vulnerable signup. It does not perform any URL validation.</p>
+    <% } %>
+</body>
+</html>
